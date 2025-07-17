@@ -39,13 +39,15 @@ func buildGetSql(options []opts.ExpenseGetFilterOpt) (string, []interface{}) {
 		"SELECT * FROM expenses %s order by date desc LIMIT %d OFFSET %d", where, pageSize, (page-1)*pageSize,
 	)
 
+	// where id (sortable column/field)
+
 	// one last thing...
 	// is this summary or not
 	if ff.IsSummary {
 		subQuerySql := `
 			SELECT 
-				SUM(CASE WHEN type = 'income' THEN amount ELSE 0 END) AS total_income,
-				SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END) AS total_expense
+				COALESCE(SUM(CASE WHEN type = 'income' THEN amount ELSE 0 END), 0.0) AS total_income,
+				COALESCE(SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END), 0.0) AS total_expense
 			FROM
 				 (%s)
 		`

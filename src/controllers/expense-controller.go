@@ -49,17 +49,17 @@ func (c ExpenseController) Get(w http.ResponseWriter, req *http.Request) {
 	ctx := req.Context()
 
 	//
-	filter := extractFilterFrom(req)
+	filter := extractFilterFrom(req) //
 
 	// retrieving models
-	models, err := c.Repo.ExpenseGet(ctx, filter)
+	models, err := c.Repo.ExpenseGet(ctx, filter) // list
 	if err != nil {
 		response.New400(err.Error()).Write(w)
 		return
 	}
 
 	// summary too
-	totalIncome, totalExpense, err := c.Repo.ExpenseGetSummary(ctx, filter)
+	totalIncome, totalExpense, err := c.Repo.ExpenseGetSummary(ctx, filter) // summary
 	if err != nil {
 		response.New400(err.Error()).Write(w)
 		return

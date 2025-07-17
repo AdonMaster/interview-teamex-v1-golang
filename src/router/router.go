@@ -13,7 +13,7 @@ func Init(repo *repo.Repo) *http.ServeMux {
 	// auth
 	expenseController := controllers.ExpenseController{Repo: repo}
 	router.HandleFunc("GET /expenses", expenseController.Get)
-	router.HandleFunc("GET /expenses/summary", expenseController.Summary)
+	router.HandleFunc("GET /expenses/summary", expenseController.Summary) // deprecated
 
 	router.HandleFunc("POST /expenses", expenseController.Create)
 	router.HandleFunc("PUT /expenses/{id}", expenseController.Update)

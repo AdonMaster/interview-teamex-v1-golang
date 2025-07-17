@@ -2,6 +2,7 @@ package repo
 
 import (
 	"context"
+	"github.com/jackc/pgx/v5"
 	"interview-teamex-v1/src/db/model"
 	"interview-teamex-v1/src/repo/opts"
 )
@@ -67,6 +68,9 @@ func (repo *Repo) ExpenseGetSummary(ctx context.Context, options []opts.ExpenseG
 	var totalExpense float64
 	err := repo.Conn.QueryRow(ctx, sql, whereParams...).Scan(&totalIncome, &totalExpense)
 	if err != nil {
+		if err == pgx.ErrNoRows {
+			return 0, 0, nil
+		}
 		return 0, 0, err
 	}
 
