@@ -1,0 +1,28 @@
+GET http://localhost:3000/expenses?page=1&pageSize=10
+Content-Type: application/json
+
+###
+POST http://localhost:3000/expenses
+Content-Type: application/json
+
+{
+  "date": "2025-07-16T19:50:30Z",
+  "amount": 44.5,
+  "type": "expense",
+  "category": "shopping"
+}
+
+###
+PUT http://localhost:3000/expenses/1
+Content-Type: application/json
+
+{
+  "date": "2025-07-10T19:50:30Z",
+  "amount": 8000.5,
+  "type": "income",
+  "category": "salary"
+}
+
+
+###
+DELETE http://localhost:3000/expenses/4
